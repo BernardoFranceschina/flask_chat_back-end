@@ -1,5 +1,6 @@
 from flask_restful import Resource, Api, reqparse
 from database.database import Database
+from flask import jsonify
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', required=True, help='Nome de usuário é obrigatório')
@@ -11,5 +12,5 @@ class Signup(Resource):
         data = parser.parse_args()
         if data['username'] and data['password']:
             Database().add_user(data['username'], data['password'])
-            return True
-        return False
+            return jsonify({'message': 'success'})
+        return jsonify({'message': 'failed'})

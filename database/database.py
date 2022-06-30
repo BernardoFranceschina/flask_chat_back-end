@@ -50,7 +50,6 @@ class Database:
                 _room = cursor.fetchone()
                 if _room:
                     rooms.append(_room)
-
         return rooms
 
     def get_user_messages(self, room_id):

@@ -1,7 +1,6 @@
 CREATE TABLE `user` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(30) NOT NULL,
-    `name` VARCHAR(30) NOT NULL,
     `password` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`)
 );

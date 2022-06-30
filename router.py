@@ -1,4 +1,4 @@
-from flask import Flask, session, request, render_template
+from flask import Flask, make_response
 from api.version import *
 from api.login import *
 from api.logout import *
@@ -19,7 +19,3 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     return response
 
-@app.before_request
-def before_request():
-    if 'user_session' not in session and request.endpoint != 'login':
-        return render_template('no_access.html')
