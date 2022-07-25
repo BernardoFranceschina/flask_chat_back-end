@@ -13,6 +13,5 @@ class Login(Resource):
         data = parser.parse_args()
         user = Database().get_user(data['username'], data['password'])
         if user:
-            session['user_session'] = uuid.uuid4()
-            return jsonify({'user': {'session': session['user_session'], 'name:': user['username']}})
+            return jsonify({'user': {'session': uuid.uuid4(), 'id': user['id'], 'name': user['username']}})
         return jsonify({'user': None})

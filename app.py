@@ -17,15 +17,21 @@ def disconnect():
 
 
 @socketio.on('send_message_room')
-def send_message_room(message, room):
+def send_message_room(message, room, user):
     send(message, to=room)
+    Database().send_message(room, user, message)
     print('Message:', message, '\nRoom:', room)
 
 
 @socketio.on('join')
 def on_join(user, room):
     join_room(room)
-    send(user + ' has entered the room.', to=room)
+    msgs = Database().get_user_messages(room)
+    messages = []
+    for i in msgs:
+        user = Database().get_user_by_id(i["user_id"])
+        messages.append({'msg': i["message"], 'user_id': i["user_id"], 'username': user["username"]})
+    send(messages, to=room)
 
 
 @socketio.on('leave')

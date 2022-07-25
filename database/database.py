@@ -12,6 +12,13 @@ class Database:
         self.con = pymysql.connect(host=host, user=user, password=password, db=db,
                                    cursorclass=pymysql.cursors.DictCursor)
 
+    def get_user_by_id(self, user):
+        with self.con.cursor() as cursor:
+            sql = "SELECT * FROM `user` WHERE `id` = %s"
+            cursor.execute(sql, user)
+            result = cursor.fetchone()
+        return result
+
     def get_user(self, username, password=None):
         if not password:
             with self.con.cursor() as cursor:
